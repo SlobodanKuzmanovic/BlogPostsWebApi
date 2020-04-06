@@ -13,17 +13,17 @@ namespace BlogPostsWebApi.Controllers
 
 
         [HttpGet]
-        [Route("~/api/posts")]
-        public JsonResult Get()
+        [Route("~/api/posts/{slug}")]
+        public JsonResult SingleBlogPost(string slug)
         {
-            return new JsonResult("Get");
+            return new JsonResult("Get with slug: " + slug);
         }
 
         [HttpGet]
-        [Route("~/api/posts/:slug")]
-        public JsonResult Get(string slug)
+        [Route("~/api/posts")]
+        public JsonResult MultipleBlogPosts(string tag = "")
         {
-            return new JsonResult("Get with slug: " + slug);
+            return new JsonResult("Get");
         }
 
 

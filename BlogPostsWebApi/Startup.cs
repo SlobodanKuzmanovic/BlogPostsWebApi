@@ -45,6 +45,9 @@ namespace BlogPostsWebApi
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=BlogPost}/{action=Get}/{slug?}");
             });
         }
     }
