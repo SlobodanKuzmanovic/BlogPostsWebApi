@@ -7,6 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlogPostsWebApi", "BlogPost
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonLayer", "CommonLayer\CommonLayer.csproj", "{D183CF04-F129-4F8A-9DA6-D04E2045D63C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessLayer", "DataAccessLayer\DataAccessLayer.csproj", "{E476ADB1-7101-4A44-A033-8F32E17AC429}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLayer", "BusinessLayer\BusinessLayer.csproj", "{351308D8-6E97-4ACC-BE65-7965EBB81A2C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{D183CF04-F129-4F8A-9DA6-D04E2045D63C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D183CF04-F129-4F8A-9DA6-D04E2045D63C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D183CF04-F129-4F8A-9DA6-D04E2045D63C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E476ADB1-7101-4A44-A033-8F32E17AC429}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E476ADB1-7101-4A44-A033-8F32E17AC429}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E476ADB1-7101-4A44-A033-8F32E17AC429}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E476ADB1-7101-4A44-A033-8F32E17AC429}.Release|Any CPU.Build.0 = Release|Any CPU
+		{351308D8-6E97-4ACC-BE65-7965EBB81A2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{351308D8-6E97-4ACC-BE65-7965EBB81A2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{351308D8-6E97-4ACC-BE65-7965EBB81A2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{351308D8-6E97-4ACC-BE65-7965EBB81A2C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
