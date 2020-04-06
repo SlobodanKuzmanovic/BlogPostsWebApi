@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CommonLayer;
+using DataAccessLayer;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,16 +16,17 @@ namespace BlogPostsWebApi.Controllers
 
         [HttpGet]
         [Route("~/api/posts/{slug}")]
-        public JsonResult SingleBlogPost(string slug)
+        public rm_SingleBlogPost SingleBlogPost(string slug)
         {
-            return new JsonResult("Get with slug: " + slug);
+            return new rm_SingleBlogPost();
         }
 
         [HttpGet]
         [Route("~/api/posts")]
-        public JsonResult MultipleBlogPosts(string tag = "")
+        public rm_MultipleBlogPosts MultipleBlogPosts(string tag = "")
         {
-            return new JsonResult("Get");
+            var str = ConnectionString.ConStr;
+            return new rm_MultipleBlogPosts();
         }
 
 
