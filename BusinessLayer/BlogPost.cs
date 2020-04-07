@@ -1,4 +1,5 @@
-﻿using BusinessLayer.Interfaces;
+﻿using BusinessLayer.Helpers;
+using BusinessLayer.Interfaces;
 using CommonLayer;
 using DataAccessLayer.Interfaces;
 using System;
@@ -33,20 +34,31 @@ namespace BusinessLayer
         public rm_SingleBlogPost Create_BlogPost(rm_SingleBlogPost blogPost)
         {
             rm_SingleBlogPost rm_SingleBlogPost = null;
+
             using (var transaction = new TransactionScope())
             {
                 try
                 {
                     var tagList = _tagBL.Create_Tags_IfNotExist(blogPost.blogPost.tagList);
 
+
+                    db_SingleBlogPost db_SingleBlogPost = new db_SingleBlogPost()
+                    {
+                        slug = Get_SlugForPost(blogPost.blogPost.title),
+                        title = blogPost.blogPost.title,
+                        description = blogPost.blogPost.description,
+                        body = blogPost.blogPost.body,
+                        createdAt = DateTime.Now
+                    };
+
                     //blogPost.blogPost.createdAt = DateTime.Now;
 
-                    rm_SingleBlogPost = _blogPostDA.Create_BlogPost(blogPost);
+                    var created_SingleBlogPost = _blogPostDA.Create_BlogPost(db_SingleBlogPost);
 
 
                     foreach (var item in tagList)
                     {
-                        _blogPostDA.Create_AddTagToPost(item.PkTagId, rm_SingleBlogPost.blogPost.PkBlogPostId);
+                        _blogPostDA.Create_AddTagToPost(item.PkTagId, (long)created_SingleBlogPost.PkBlogPostId);
                     }
 
                     transaction.Complete();
@@ -63,6 +75,25 @@ namespace BusinessLayer
         public rm_SingleBlogPost Update_BlogPost(rm_SingleBlogPost blogPost)
         {
             return _blogPostDA.Update_BlogPost(blogPost);
+        }
+
+        public string Get_SlugForPost(string title)
+        {
+            string r_string = title.ToLower().Replace(" ", "-");
+
+            byte[] tempBytes;
+            tempBytes = System.Text.Encoding.GetEncoding("ISO-8859-8").GetBytes(r_string);
+            r_string = System.Text.Encoding.UTF8.GetString(tempBytes);
+
+            var postIfSlugExist = _blogPostDA.Get_SingleBlogPost(r_string);
+
+            if (postIfSlugExist != null)
+            {
+                return Get_SlugForPost(postIfSlugExist.blogPost.title + Helpers.Helper_BlogPost.GenerateRandomNoForSlug());
+            }
+
+
+            return r_string;
         }
     }
 }
