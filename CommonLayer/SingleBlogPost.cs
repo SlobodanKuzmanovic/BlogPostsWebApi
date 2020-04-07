@@ -7,6 +7,7 @@ namespace CommonLayer
 {
     public class SingleBlogPost
     {
+        public long PkBlogPostId { get; set; }
         public string slug { get; set; }
         [Required]
         public string title { get; set; }

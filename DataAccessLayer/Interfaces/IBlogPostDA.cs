@@ -11,5 +11,6 @@ namespace DataAccessLayer.Interfaces
         rm_MultipleBlogPosts Get_MultipleBlogPosts(string tag);
         rm_SingleBlogPost Create_BlogPost(rm_SingleBlogPost blogPost);
         rm_SingleBlogPost Update_BlogPost(rm_SingleBlogPost blogPost);
+        void Create_AddTagToPost(long PkTagId, long PkPostId);
     }
 }

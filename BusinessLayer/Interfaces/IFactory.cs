@@ -7,5 +7,6 @@ namespace BusinessLayer.Interfaces
     public interface IFactory
     {
         IBlogPost GetBlogPost();
+        ITagBL GetTagBL();
     }
 }

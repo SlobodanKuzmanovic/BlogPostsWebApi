@@ -11,5 +11,10 @@ namespace BusinessLayer
         {
             return new BlogPost();
         }
+
+        public ITagBL GetTagBL()
+        {
+            return new TagBL();
+        }
     }
 }

@@ -7,6 +7,6 @@ namespace BusinessLayer.Interfaces
 {
     public interface ITagBL
     {
-        Tag Create_Tag_IfNotExist(List<string> tagList);
+        List<Tag> Create_Tags_IfNotExist(List<string> tagList);
     }
 }

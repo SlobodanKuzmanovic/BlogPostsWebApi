@@ -11,5 +11,10 @@ namespace DataAccessLayer
         {
             return new BlogPostDA();
         }
+
+        public ITagDA GetTagDA()
+        {
+            return new TagDA();
+        }
     }
 }
