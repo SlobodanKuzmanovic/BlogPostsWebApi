@@ -25,5 +25,10 @@ namespace BusinessLayer
         {
             return _blogPostDA.Get_MultipleBlogPosts(tag);
         }
+
+        public rm_SingleBlogPost Create_BlogPost(rm_SingleBlogPost blogPost)
+        {
+            return _blogPostDA.Create_BlogPost(blogPost);
+        }
     }
 }

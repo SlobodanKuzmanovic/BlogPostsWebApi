@@ -17,5 +17,10 @@ namespace DataAccessLayer
         {
             throw new NotImplementedException();
         }
+
+        public rm_SingleBlogPost Create_BlogPost(rm_SingleBlogPost blogPost)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

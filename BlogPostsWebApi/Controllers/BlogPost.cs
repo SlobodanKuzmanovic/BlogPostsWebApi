@@ -39,7 +39,7 @@ namespace BlogPostsWebApi.Controllers
         [HttpPost]
         public rm_SingleBlogPost CreateBlogPost(rm_SingleBlogPost blogPost)
         {
-            return null;
+            return _blogPost.Create_BlogPost(blogPost);
         }
 
 
