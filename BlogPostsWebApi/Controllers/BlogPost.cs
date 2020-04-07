@@ -1,5 +1,5 @@
-﻿using CommonLayer;
-using DataAccessLayer;
+﻿using BusinessLayer.Interfaces;
+using CommonLayer;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -12,7 +12,16 @@ namespace BlogPostsWebApi.Controllers
     [Route("api/posts")]
     public class BlogPost
     {
+        private IBlogPost _blogPost;
 
+        public BlogPost()
+        {
+            if (BusinessLayer.Scope.Factory == null)
+            {
+                BusinessLayer.Scope.Factory = new BusinessLayer.Factory();
+            }
+            _blogPost = BusinessLayer.Scope.Factory.GetBlogPost();
+        }
 
         [HttpGet]
         [Route("~/api/posts/{slug}")]
@@ -25,7 +34,6 @@ namespace BlogPostsWebApi.Controllers
         [Route("~/api/posts")]
         public rm_MultipleBlogPosts MultipleBlogPosts(string tag = "")
         {
-            var str = ConnectionString.ConStr;
             return new rm_MultipleBlogPosts();
         }
 
