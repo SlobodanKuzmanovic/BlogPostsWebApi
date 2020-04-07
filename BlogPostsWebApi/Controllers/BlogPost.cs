@@ -42,6 +42,13 @@ namespace BlogPostsWebApi.Controllers
             return _blogPost.Create_BlogPost(blogPost);
         }
 
+        [HttpPut]
+        [Route("{slug}")]
+        public rm_SingleBlogPost UpdateBlogPost(string slug, rm_SingleBlogPost blogPost)
+        {
+            return null;
+        }
+
 
         [HttpGet]
         [Route("welcome")]
