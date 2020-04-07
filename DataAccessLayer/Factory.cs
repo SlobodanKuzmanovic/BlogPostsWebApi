@@ -7,5 +7,9 @@ namespace DataAccessLayer
 {
     public class Factory : IFactory
     {
+        public IBlogPostDA GetBlogPostDA()
+        {
+            return new BlogPostDA();
+        }
     }
 }

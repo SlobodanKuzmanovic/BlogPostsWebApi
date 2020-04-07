@@ -6,14 +6,14 @@ using System.Text;
 
 namespace DataAccessLayer
 {
-    public class BlogPostDA : IBlogPostDA
+    internal class BlogPostDA : IBlogPostDA
     {
-        public rm_MultipleBlogPosts Get_MultipleBlogPosts()
+        public rm_SingleBlogPost Get_SingleBlogPost(string slug)
         {
             throw new NotImplementedException();
         }
 
-        public rm_SingleBlogPost Get_SingleBlogPost()
+        public rm_MultipleBlogPosts Get_MultipleBlogPosts(string tag)
         {
             throw new NotImplementedException();
         }

@@ -1,5 +1,6 @@
 ﻿using BusinessLayer.Interfaces;
 using CommonLayer;
+using DataAccessLayer.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,14 +9,21 @@ namespace BusinessLayer
 {
     internal class BlogPost : IBlogPost
     {
-        public rm_SingleBlogPost Get_SingleBlogPost()
+        private IBlogPostDA _blogPostDA;
+
+        public BlogPost()
         {
-            throw new NotImplementedException();
+            _blogPostDA = DataAccessLayer.Scope.Factory.GetBlogPostDA();
         }
 
-        public rm_MultipleBlogPosts Get_MultipleBlogPosts()
+        public rm_SingleBlogPost Get_SingleBlogPost(string slug)
         {
-            throw new NotImplementedException();
+            return _blogPostDA.Get_SingleBlogPost(slug);
+        }
+
+        public rm_MultipleBlogPosts Get_MultipleBlogPosts(string tag)
+        {
+            return _blogPostDA.Get_MultipleBlogPosts(tag);
         }
     }
 }

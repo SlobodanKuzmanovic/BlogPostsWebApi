@@ -27,14 +27,21 @@ namespace BlogPostsWebApi.Controllers
         [Route("~/api/posts/{slug}")]
         public rm_SingleBlogPost SingleBlogPost(string slug)
         {
-            return new rm_SingleBlogPost();
+            return _blogPost.Get_SingleBlogPost(slug);
         }
 
         [HttpGet]
         [Route("~/api/posts")]
-        public rm_MultipleBlogPosts MultipleBlogPosts(string tag = "")
+        public rm_MultipleBlogPosts MultipleBlogPosts(string tag)
         {
-            return new rm_MultipleBlogPosts();
+            return _blogPost.Get_MultipleBlogPosts(tag);
+        }
+
+        [HttpPost]
+        [Route("~/api/posts")]
+        public rm_SingleBlogPost CreateBlogPost(string tag)
+        {
+            return null;
         }
 
 

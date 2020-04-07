@@ -6,5 +6,6 @@ namespace DataAccessLayer.Interfaces
 {
     public interface IFactory
     {
+        IBlogPostDA GetBlogPostDA();
     }
 }
