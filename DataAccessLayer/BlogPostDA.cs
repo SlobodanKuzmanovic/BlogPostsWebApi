@@ -11,7 +11,46 @@ namespace DataAccessLayer
     {
         public rm_SingleBlogPost Get_SingleBlogPost(string slug)
         {
-            throw new NotImplementedException();
+            string queryString = "dbo.st_Get_SingleBlogPost";
+
+            using (SqlConnection connection = new SqlConnection(ConnectionString.ConStr))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@slug", slug);
+
+                rm_SingleBlogPost postModel = null;
+
+                try
+                {
+                    connection.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            postModel = new rm_SingleBlogPost()
+                            {
+                                blogPost = new SingleBlogPost()
+                                {
+                                    slug = reader["slug"].ToString(),
+                                    title = reader["title"].ToString(),
+                                    description = reader["description"].ToString(),
+                                    body = reader["body"].ToString(),
+                                    createdAt = reader["createdAt"].ToString(),
+                                    updatedAt = reader["updatedAt"].ToString()
+                                }
+                            };
+                        }
+                    }
+                }
+                catch (Exception exception)
+                {
+                    throw new Exception(exception.Message);
+                }
+
+                return postModel;
+            }
         }
 
         public rm_MultipleBlogPosts Get_MultipleBlogPosts(string tag)

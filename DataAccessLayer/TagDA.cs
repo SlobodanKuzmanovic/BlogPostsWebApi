@@ -77,8 +77,6 @@ namespace DataAccessLayer
                 }
 
                 return tagModel;
-
-                throw new NotImplementedException();
             }
         }
     }

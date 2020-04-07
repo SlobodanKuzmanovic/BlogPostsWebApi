@@ -89,10 +89,8 @@ namespace BusinessLayer
 
             if (postIfSlugExist != null)
             {
-                return Get_SlugForPost(postIfSlugExist.blogPost.title + Helpers.Helper_BlogPost.GenerateRandomNoForSlug());
+                return Get_SlugForPost(postIfSlugExist.blogPost.title + "-" + Helpers.Helper_BlogPost.GenerateRandomNoForSlug());
             }
-
-
             return r_string;
         }
     }
