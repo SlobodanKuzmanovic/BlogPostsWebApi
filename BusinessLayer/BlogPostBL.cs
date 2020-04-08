@@ -72,7 +72,7 @@ namespace BusinessLayer
             return rm_SingleBlogPost;
         }
 
-        public rm_SingleBlogPost Update_BlogPost(string slug, rm_SingleBlogPost blogPost)
+        public rm_SingleBlogPost Update_BlogPost(string slug, vm_SingleBlogPost blogPost)
         {
             rm_SingleBlogPost rm_SingleBlogPost = null;
 
@@ -103,7 +103,7 @@ namespace BusinessLayer
             string r_string = title.ToLower().Replace(" ", "-");
 
             byte[] tempBytes;
-            tempBytes = System.Text.Encoding.GetEncoding("ISO-8859-8").GetBytes(r_string);
+            tempBytes = System.Text.Encoding.GetEncoding("UTF-8").GetBytes(r_string);
             r_string = System.Text.Encoding.UTF8.GetString(tempBytes);
 
             var postIfSlugExist = _blogPostDA.Get_SingleBlogPost(r_string);

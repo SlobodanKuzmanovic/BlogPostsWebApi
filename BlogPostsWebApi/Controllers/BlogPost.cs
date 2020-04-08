@@ -44,7 +44,7 @@ namespace BlogPostsWebApi.Controllers
 
         [HttpPut]
         [Route("{slug}")]
-        public rm_SingleBlogPost UpdateBlogPost(string slug, rm_SingleBlogPost blogPost)
+        public rm_SingleBlogPost UpdateBlogPost(string slug, vm_SingleBlogPost blogPost)
         {
             return _blogPost.Update_BlogPost(slug, blogPost);
         }
