@@ -28,5 +28,10 @@ namespace BusinessLayer
             }
             return rm_Tags;
         }
+
+        public rm_Tag Get_Tags()
+        {
+            return _tagDA.Get_Tags();
+        }
     }
 }

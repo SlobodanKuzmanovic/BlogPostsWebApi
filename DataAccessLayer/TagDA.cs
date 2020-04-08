@@ -79,5 +79,38 @@ namespace DataAccessLayer
                 return tagModel;
             }
         }
+
+        public rm_Tag Get_Tags()
+        {
+            string queryString = "dbo.st_Get_Tags";
+
+            using (SqlConnection connection = new SqlConnection(ConnectionString.ConStr))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                rm_Tag rm_tagModel = new rm_Tag();
+
+                try
+                {
+                    connection.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            rm_tagModel.tags.Add(reader["tag"].ToString());
+                            //tagModel.tag = reader["tag"].ToString();
+                        }
+                    }
+                }
+                catch (Exception exception)
+                {
+                    throw new Exception(exception.Message);
+                }
+
+                return rm_tagModel;
+            }
+        }
     }
 }
