@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CommonLayer.Helpers
 {
-    public class BlogPost
+    public class BlogPostH
     {
         public static int GenerateRandomNoForSlug()
         {

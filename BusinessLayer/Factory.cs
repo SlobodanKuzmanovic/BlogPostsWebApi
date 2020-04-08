@@ -9,7 +9,7 @@ namespace BusinessLayer
     {
         public IBlogPost GetBlogPost()
         {
-            return new BlogPost();
+            return new BlogPostBL();
         }
 
         public ITagBL GetTagBL()

@@ -46,7 +46,7 @@ namespace BlogPostsWebApi.Controllers
         [Route("{slug}")]
         public rm_SingleBlogPost UpdateBlogPost(string slug, rm_SingleBlogPost blogPost)
         {
-            return null;
+            return _blogPost.Update_BlogPost(slug, blogPost);
         }
 
 

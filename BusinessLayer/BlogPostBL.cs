@@ -8,12 +8,12 @@ using System.Transactions;
 
 namespace BusinessLayer
 {
-    internal class BlogPost : IBlogPost
+    internal class BlogPostBL : IBlogPost
     {
         private IBlogPostDA _blogPostDA;
         private ITagBL _tagBL;
 
-        public BlogPost()
+        public BlogPostBL()
         {
             _blogPostDA = DataAccessLayer.Scope.Factory.GetBlogPostDA();
             _tagBL = BusinessLayer.Scope.Factory.GetTagBL();
@@ -28,7 +28,6 @@ namespace BusinessLayer
         {
             return _blogPostDA.Get_MultipleBlogPosts(tag);
         }
-
 
         public rm_SingleBlogPost Create_BlogPost(rm_SingleBlogPost blogPost)
         {
@@ -54,6 +53,8 @@ namespace BusinessLayer
 
                     var created_SingleBlogPost = _blogPostDA.Create_BlogPost(db_SingleBlogPost);
 
+                    rm_SingleBlogPost.blogPost.slug = created_SingleBlogPost.slug;
+                    rm_SingleBlogPost.blogPost.createdAt = CommonLayer.Helpers.BlogPostH.dateTimeParserFromString(created_SingleBlogPost.ToString());
 
                     foreach (var item in tagList)
                     {
@@ -71,9 +72,30 @@ namespace BusinessLayer
             return rm_SingleBlogPost;
         }
 
-        public rm_SingleBlogPost Update_BlogPost(rm_SingleBlogPost blogPost)
+        public rm_SingleBlogPost Update_BlogPost(string slug, rm_SingleBlogPost blogPost)
         {
-            return _blogPostDA.Update_BlogPost(blogPost);
+            rm_SingleBlogPost rm_SingleBlogPost = null;
+
+            string newSlug = slug;
+            if (!String.IsNullOrEmpty(blogPost.blogPost.title))
+            {
+                newSlug = Get_SlugForPost(blogPost.blogPost.title);
+            }
+
+            db_SingleBlogPost db_SingleBlogPost = new db_SingleBlogPost()
+            {
+                slug = newSlug,
+                title = blogPost.blogPost.title,
+                description = blogPost.blogPost.description,
+                body = blogPost.blogPost.body,
+                updatedAt = DateTime.Now
+            };
+
+            var updated_SingleBlogPost = _blogPostDA.Update_BlogPost(slug, db_SingleBlogPost);
+
+            rm_SingleBlogPost = _blogPostDA.Get_SingleBlogPost(updated_SingleBlogPost.slug);
+
+            return rm_SingleBlogPost;
         }
 
         public string Get_SlugForPost(string title)
@@ -88,7 +110,7 @@ namespace BusinessLayer
 
             if (postIfSlugExist != null)
             {
-                return Get_SlugForPost(postIfSlugExist.blogPost.title + "-" + CommonLayer.Helpers.BlogPost.GenerateRandomNoForSlug());
+                return Get_SlugForPost(postIfSlugExist.blogPost.title + "-" + CommonLayer.Helpers.BlogPostH.GenerateRandomNoForSlug());
             }
             return r_string;
         }

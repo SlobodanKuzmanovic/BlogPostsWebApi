@@ -37,12 +37,12 @@ namespace DataAccessLayer
                                     title = reader["title"].ToString(),
                                     description = reader["description"].ToString(),
                                     body = reader["body"].ToString(),
-                                    createdAt = CommonLayer.Helpers.BlogPost.dateTimeParserFromString(reader["createdAt"].ToString()),
-                                    updatedAt = CommonLayer.Helpers.BlogPost.dateTimeParserFromString(reader["updatedAt"].ToString())
+                                    createdAt = CommonLayer.Helpers.BlogPostH.dateTimeParserFromString(reader["createdAt"].ToString()),
+                                    updatedAt = CommonLayer.Helpers.BlogPostH.dateTimeParserFromString(reader["updatedAt"].ToString())
                                 }
                             };
                             var tags = reader["tags"].ToString();
-                            postModel.blogPost.tagList = CommonLayer.Helpers.BlogPost.fixTagsFromDB(tags);
+                            postModel.blogPost.tagList = CommonLayer.Helpers.BlogPostH.fixTagsFromDB(tags);
                         }
                     }
                 }
@@ -81,11 +81,11 @@ namespace DataAccessLayer
                                 title = reader["title"].ToString(),
                                 description = reader["description"].ToString(),
                                 body = reader["body"].ToString(),
-                                createdAt = CommonLayer.Helpers.BlogPost.dateTimeParserFromString(reader["createdAt"].ToString()),
-                                updatedAt = CommonLayer.Helpers.BlogPost.dateTimeParserFromString(reader["updatedAt"].ToString())
+                                createdAt = CommonLayer.Helpers.BlogPostH.dateTimeParserFromString(reader["createdAt"].ToString()),
+                                updatedAt = CommonLayer.Helpers.BlogPostH.dateTimeParserFromString(reader["updatedAt"].ToString())
                             };
                             var tags = reader["tags"].ToString();
-                            single.tagList = CommonLayer.Helpers.BlogPost.fixTagsFromDB(tags);
+                            single.tagList = CommonLayer.Helpers.BlogPostH.fixTagsFromDB(tags);
                             rmModel.blogPosts.Add(single);
                         }
                     }
@@ -135,9 +135,41 @@ namespace DataAccessLayer
             }
         }
 
-        public rm_SingleBlogPost Update_BlogPost(rm_SingleBlogPost blogPost)
+        public db_SingleBlogPost Update_BlogPost(string slug, db_SingleBlogPost blogPost)
         {
-            throw new NotImplementedException();
+            string queryString = "dbo.st_Update_BlogPost";
+
+            using (SqlConnection connection = new SqlConnection(ConnectionString.ConStr))
+            {
+                using (SqlCommand command = new SqlCommand(queryString, connection))
+                {
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@oldSlug", slug);
+                    command.Parameters.AddWithValue("@slug", blogPost.slug);
+                    command.Parameters.AddWithValue("@title", blogPost.title);
+                    command.Parameters.AddWithValue("@description", blogPost.description);
+                    command.Parameters.AddWithValue("@body", blogPost.body);
+                    command.Parameters.AddWithValue("@updatedAt", blogPost.updatedAt);
+
+                    try
+                    {
+                        connection.Open();
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                blogPost.PkBlogPostId = Convert.ToInt64(reader["PkPostId"]);
+                            }
+                        }
+                    }
+                    catch (Exception exception)
+                    {
+                        throw new Exception(exception.Message);
+                    }
+
+                    return blogPost;
+                }
+            }
         }
 
         public void Create_AddTagToPost(long PkTagId, long PkPostId)
