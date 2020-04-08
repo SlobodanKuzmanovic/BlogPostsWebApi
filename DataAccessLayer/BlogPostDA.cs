@@ -196,5 +196,54 @@ namespace DataAccessLayer
                 }
             }
         }
+
+        public bool Delete_BlogPost(string slug)
+        {
+            string queryString = "dbo.st_Delete_BlogPost";
+
+            using (SqlConnection connection = new SqlConnection(ConnectionString.ConStr))
+            {
+                using (SqlCommand command = new SqlCommand(queryString, connection))
+                {
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@slug", slug);
+
+                    try
+                    {
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                    }
+                    catch (Exception exception)
+                    {
+                        throw new Exception(exception.Message);
+                    }
+                }
+            };
+            return true;
+        }
+
+        public void Delete_TagsFromPost(string slug)
+        {
+            string queryString = "dbo.st_Delete_TagsFromPost";
+
+            using (SqlConnection connection = new SqlConnection(ConnectionString.ConStr))
+            {
+                using (SqlCommand command = new SqlCommand(queryString, connection))
+                {
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@slug", slug);
+
+                    try
+                    {
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                    }
+                    catch (Exception exception)
+                    {
+                        throw new Exception(exception.Message);
+                    }
+                }
+            };
+        }
     }
 }

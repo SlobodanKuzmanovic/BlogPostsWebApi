@@ -12,5 +12,6 @@ namespace BusinessLayer.Interfaces
         rm_SingleBlogPost Create_BlogPost(rm_SingleBlogPost blogPost);
         rm_SingleBlogPost Update_BlogPost(string slug, vm_SingleBlogPost blogPost);
         string Get_SlugForPost(string title);
+        bool Delete_BlogPost(string slug);
     }
 }

@@ -49,6 +49,13 @@ namespace BlogPostsWebApi.Controllers
             return _blogPost.Update_BlogPost(slug, blogPost);
         }
 
+        [HttpDelete]
+        [Route("{slug}")]
+        public bool DeleteBlogPost(string slug)
+        {
+            return _blogPost.Delete_BlogPost(slug);
+        }
+
 
         [HttpGet]
         [Route("welcome")]

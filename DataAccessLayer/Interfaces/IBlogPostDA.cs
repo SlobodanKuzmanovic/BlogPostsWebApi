@@ -12,5 +12,7 @@ namespace DataAccessLayer.Interfaces
         db_SingleBlogPost Create_BlogPost(db_SingleBlogPost blogPost);
         db_SingleBlogPost Update_BlogPost(string slug, db_SingleBlogPost blogPost);
         void Create_AddTagToPost(long PkTagId, long PkPostId);
+        bool Delete_BlogPost(string slug);
+        void Delete_TagsFromPost(string slug);
     }
 }

@@ -113,5 +113,27 @@ namespace BusinessLayer
             }
             return r_string;
         }
+
+        public bool Delete_BlogPost(string slug)
+        {
+            bool deleted = false;
+            using (var transaction = new TransactionScope())
+            {
+                try
+                {
+                    _blogPostDA.Delete_TagsFromPost(slug);
+                    deleted = _blogPostDA.Delete_BlogPost(slug);
+
+                    transaction.Complete();
+                }
+                catch (Exception exc)
+                {
+                    transaction.Dispose();
+                    throw exc;
+                }
+            }
+
+            return deleted;
+        }
     }
 }
