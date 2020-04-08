@@ -4,6 +4,7 @@ using DataAccessLayer.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Transactions;
 
 namespace BusinessLayer
@@ -31,8 +32,6 @@ namespace BusinessLayer
 
         public rm_SingleBlogPost Create_BlogPost(rm_SingleBlogPost blogPost)
         {
-            rm_SingleBlogPost rm_SingleBlogPost = null;
-
             using (var transaction = new TransactionScope())
             {
                 try
@@ -53,9 +52,9 @@ namespace BusinessLayer
 
                     var created_SingleBlogPost = _blogPostDA.Create_BlogPost(db_SingleBlogPost);
 
-                    rm_SingleBlogPost.blogPost.slug = created_SingleBlogPost.slug;
-                    rm_SingleBlogPost.blogPost.createdAt = CommonLayer.Helpers.BlogPostH.dateTimeParserFromString(created_SingleBlogPost.ToString());
-
+                    blogPost.blogPost.slug = created_SingleBlogPost.slug;
+                    blogPost.blogPost.createdAt = CommonLayer.Helpers.BlogPostH.dateTimeParserFromString(created_SingleBlogPost.createdAt.ToString());
+                    blogPost.blogPost.updatedAt = "";
                     foreach (var item in tagList)
                     {
                         _blogPostDA.Create_AddTagToPost(item.PkTagId, (long)created_SingleBlogPost.PkBlogPostId);
@@ -69,7 +68,7 @@ namespace BusinessLayer
                     throw exc;
                 }
             }
-            return rm_SingleBlogPost;
+            return blogPost;
         }
 
         public rm_SingleBlogPost Update_BlogPost(string slug, vm_SingleBlogPost blogPost)
@@ -100,10 +99,10 @@ namespace BusinessLayer
 
         public string Get_SlugForPost(string title)
         {
-            string r_string = title.ToLower().Replace(" ", "-");
-
+            string r_string = Regex.Replace(title, @"[^\w\d\s]", "");
+            r_string = r_string.ToLower().Replace(" ", "-");
             byte[] tempBytes;
-            tempBytes = System.Text.Encoding.GetEncoding("UTF-8").GetBytes(r_string);
+            tempBytes = System.Text.Encoding.GetEncoding("ISO-8859-1").GetBytes(r_string);
             r_string = System.Text.Encoding.UTF8.GetString(tempBytes);
 
             var postIfSlugExist = _blogPostDA.Get_SingleBlogPost(r_string);
