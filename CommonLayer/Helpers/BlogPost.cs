@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 
 namespace CommonLayer.Helpers
@@ -12,6 +13,20 @@ namespace CommonLayer.Helpers
             int _max = 9999;
             Random _rdm = new Random();
             return _rdm.Next(_min, _max);
+        }
+
+        public static string dateTimeParserFromString(string datetime)
+        {
+            try
+            {
+                DateTime dateTimeD = Convert.ToDateTime(datetime);
+                datetime = dateTimeD.ToString("yyyy-MM-ddTHH:mm:ss.fffZ");
+            }
+            catch (Exception)
+            {
+                return "";
+            }
+            return datetime;
         }
 
         public static List<string> fixTagsFromDB(string tagFromDB)

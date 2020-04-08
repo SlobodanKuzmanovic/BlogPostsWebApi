@@ -37,8 +37,8 @@ namespace DataAccessLayer
                                     title = reader["title"].ToString(),
                                     description = reader["description"].ToString(),
                                     body = reader["body"].ToString(),
-                                    createdAt = reader["createdAt"].ToString(),
-                                    updatedAt = reader["updatedAt"].ToString()
+                                    createdAt = CommonLayer.Helpers.BlogPost.dateTimeParserFromString(reader["createdAt"].ToString()),
+                                    updatedAt = CommonLayer.Helpers.BlogPost.dateTimeParserFromString(reader["updatedAt"].ToString())
                                 }
                             };
                             var tags = reader["tags"].ToString();
@@ -75,7 +75,18 @@ namespace DataAccessLayer
                     {
                         while (reader.Read())
                         {
-                            
+                            SingleBlogPost single = new SingleBlogPost()
+                            {
+                                slug = reader["slug"].ToString(),
+                                title = reader["title"].ToString(),
+                                description = reader["description"].ToString(),
+                                body = reader["body"].ToString(),
+                                createdAt = CommonLayer.Helpers.BlogPost.dateTimeParserFromString(reader["createdAt"].ToString()),
+                                updatedAt = CommonLayer.Helpers.BlogPost.dateTimeParserFromString(reader["updatedAt"].ToString())
+                            };
+                            var tags = reader["tags"].ToString();
+                            single.tagList = CommonLayer.Helpers.BlogPost.fixTagsFromDB(tags);
+                            rmModel.blogPosts.Add(single);
                         }
                     }
                 }
