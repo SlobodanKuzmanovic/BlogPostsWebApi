@@ -41,6 +41,8 @@ namespace DataAccessLayer
                                     updatedAt = reader["updatedAt"].ToString()
                                 }
                             };
+                            var tags = reader["tags"].ToString();
+                            postModel.blogPost.tagList = CommonLayer.Helpers.BlogPost.fixTagsFromDB(tags);
                         }
                     }
                 }
@@ -55,7 +57,35 @@ namespace DataAccessLayer
 
         public rm_MultipleBlogPosts Get_MultipleBlogPosts(string tag)
         {
-            throw new NotImplementedException();
+            string queryString = "dbo.st_Get_MultipleBlogPosts";
+
+            using (SqlConnection connection = new SqlConnection(ConnectionString.ConStr))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@tag", tag);
+
+                rm_MultipleBlogPosts rmModel = new rm_MultipleBlogPosts();
+
+                try
+                {
+                    connection.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            
+                        }
+                    }
+                }
+                catch (Exception exception)
+                {
+                    throw new Exception(exception.Message);
+                }
+
+                return rmModel;
+            }
         }
 
         public db_SingleBlogPost Create_BlogPost(db_SingleBlogPost blogPost)
