@@ -18,7 +18,7 @@ When project is on your local machine you will need to change connection string 
 In DataAccessLayer there is class ConnectionString where you must change propertie ConStr.
 
 ```csharp
-    namespace DataAccessLayer
+namespace DataAccessLayer
 {
     public static class ConnectionString
     {
