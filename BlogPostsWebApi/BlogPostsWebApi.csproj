@@ -13,5 +13,9 @@
     <ProjectReference Include="..\CommonLayer\CommonLayer.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="dbBackup\" />
+  </ItemGroup>
+
 
 </Project>

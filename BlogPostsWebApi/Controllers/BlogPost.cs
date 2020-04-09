@@ -61,7 +61,7 @@ namespace BlogPostsWebApi.Controllers
         [Route("welcome")]
         public JsonResult Welcome()
         {
-            return new JsonResult("Welcome");
+            return new JsonResult("Welcome to API for managing Blog");
         }
     }
 }
